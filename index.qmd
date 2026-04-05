@@ -1,0 +1,103 @@
+---
+title: Estimating and evaluating <br/> diagnostic models
+subtitle: With the R package measr
+author: W. Jake Thompson, Ph.D.
+format:
+  measr-slides-revealjs:
+    progress: false
+    auto-slide: 60000
+    loop: true
+knitr:
+  opts_chunk: 
+    comment: "#>"
+    fig.width: 7
+    fig.asp: 0.618
+    fig.align: "center"
+code-link: true
+preload-iframes: true
+code-annotations: select
+---
+
+# Section title
+
+```{r setup}
+library(tidyverse)
+library(dcmdata)
+library(ggmeasr)
+library(knitr)
+library(measr)
+library(here)
+
+set_theme(plot_margin = margin(5, 0, 0, 0))
+```
+
+## Default slide
+
+
+
+# <https://r-dcm.org> {.thank-you data-menu-title="Get in touch" background-color="#023047"}
+
+:::{.columns .v-center-container}
+
+:::{.column .image width="65%"}
+
+```{r}
+#| label: big-image
+#| out-width: 50%
+#| fig-alt: "Hex logo for the measr R package"
+
+include_graphics("figure/measr.png")
+```
+
+:::
+
+:::{.column width="35%"}
+
+:::{.thank-you-subtitle}
+
+:::{.small}
+
+{{< iconify fa6-solid globe >}} \ [wjakethompson.com](https://wjakethompson.com)  
+{{< iconify fa6-solid envelope >}} \ [wjakethompson@ku.edu](mailto:wjakethompson@ku.edu)  
+{{< iconify fa6-brands orcid >}} \ [0000-0001-7339-0300](https://orcid.org/0000-0001-7339-0300)  
+{{< iconify fa6-brands linkedin >}} \ [in/wjakethompson](https://linkedin.com/in/wjakethompson)  
+{{< iconify fa6-brands github >}} \ [@wjakethompson](https://github.com/wjakethompson)  
+{{< iconify fa6-brands bluesky >}} \ [@wjakethompson.com](https://bsky.app/profile/wjakethompson.com)  
+{{< iconify fa6-brands mastodon >}} \ [@wjakethompson@fosstodon.org](https://fosstodon.org/@wjakethompson)  
+{{< iconify fa6-brands threads >}} \ [@wjakethompson](https://www.threads.net/@wjakethompson)  
+{{< iconify fa6-brands x-twitter >}} \ [@wjakethompson](https://twitter.com/wjakethompson)  
+
+:::
+
+:::
+
+:::
+
+:::
+
+## Acknowledgements
+
+The research reported here was supported by the Institute of Education Sciences, U.S. Department of Education, through Grants [R305D210045](https://ies.ed.gov/funding/grantsearch/details.asp?ID=4546) and [R305D240032](https://ies.ed.gov/funding/grantsearch/details.asp?ID=6075) to the University of Kansas Center for Research, Inc., ATLAS. The opinions expressed are those of the authors and do not represent the views of the Institute or the U.S. Department of Education.
+<br><br>
+
+:::{.columns}
+:::{.column width="15%"}
+:::
+
+:::{.column width="70%"}
+
+```{r}
+#| label: ies-logo
+#| out-width: 100%
+#| fig-align: center
+#| fig-alt: |
+#|   Logo for the Institute of Education Sciences.
+
+include_graphics("figure/IES_InstituteOfEducationSciences_RGB.png")
+```
+
+:::
+
+:::{.column width="15%"}
+:::
+:::
