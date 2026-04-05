@@ -35,7 +35,7 @@ set_theme(plot_margin = margin(5, 0, 0, 0))
 
 
 
-# <https://r-dcm.org> {.thank-you data-menu-title="Get in touch" background-color="#023047"}
+# <https://ncme2026.wjakethompson.com> {.thank-you data-menu-title="Get in touch" background-color="#023047"}
 
 :::{.columns .v-center-container}
 
