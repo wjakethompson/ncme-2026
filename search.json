@@ -1,10 +1,59 @@
 [
   {
-    "objectID": "index.html#default-slide",
-    "href": "index.html#default-slide",
+    "objectID": "index.html#what-are-diagnositc-models",
+    "href": "index.html#what-are-diagnositc-models",
     "title": "Estimating and evaluating  diagnostic models",
-    "section": "Default slide",
-    "text": "Default slide"
+    "section": "What are diagnositc models",
+    "text": "What are diagnositc models\n\nDCMs are psychometric models for the purpose of classification\nFine-grained, multidimensional reporting\nResults that are instructionally useful for teachers, parents, and students (Thompson & Clark, 2024)"
+  },
+  {
+    "objectID": "index.html#dcms-with-stan",
+    "href": "index.html#dcms-with-stan",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "DCMs with Stan",
+    "text": "DCMs with Stan\n\n\n\nStan is free and open-source\nExisting documentation for implementing DCMs\n\nCase study using the DINA model\nPaper describing LCDM implmentation\n\n\nAccess to other packages in the Stan ecosystem\n\n\nloo, tidybayes, posterior\n\n\n\nNeed an interface with R\n\nAutomate script generation\nFacilitate model evaluations"
+  },
+  {
+    "objectID": "index.html#data-pathways-for-instructionally-embedded-assessment-pie",
+    "href": "index.html#data-pathways-for-instructionally-embedded-assessment-pie",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Data: Pathways for Instructionally Embedded Assessment (PIE)",
+    "text": "Data: Pathways for Instructionally Embedded Assessment (PIE)\n\n15 items, measuring 3 attributes\n\nLevel 1, 2, and 3 skills in a grade 5 learning pathway\nSkills follow a linear hierarchy: Level 1 -&gt; Level 2 -&gt; Level 3\nDescribed by ATLAS (2025)\n\n\n\nAvailable in the dcmdata package\n\n\n# remotes::install_github(\"r-dcm/dcmdata\")\nlibrary(dcmdata)\n\n?pie"
+  },
+  {
+    "objectID": "index.html#specify-a-dcm",
+    "href": "index.html#specify-a-dcm",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Specify a DCM",
+    "text": "Specify a DCM\n\n\n\nChoose from a wide variety of measurement models (e.g., LCDM, DINA, C-RUM)\nDefine attribute relationships through the structural model (e.g. HDCM, Bayesian Network)\nSet prior distributions\n\n\n\n\n\n\npie_hdcm_spec &lt;- dcm_specify(\n  qmatrix = pie_ft_qmatrix,\n  identifier = \"task\",\n  measurement_model = lcdm(),\n  structural_model = hdcm(\"L1 -&gt; L2 -&gt; L3\")\n)"
+  },
+  {
+    "objectID": "index.html#estimate-a-dcm",
+    "href": "index.html#estimate-a-dcm",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Estimate a DCM",
+    "text": "Estimate a DCM\n\n\n\nWraps Stan via rstan or cmdstanr packages\nMultiple estimatiom methods supported: MCMC, variational inference, or optimization\n\n\n\n\n\npie_hdcm &lt;- dcm_estimate(\n  dcm_spec = pie_hdcm_spec,\n  data = pie_ft_data,\n  identifier = \"student\",\n  method = \"mcmc\",\n  backend = \"cmdstanr\",\n  chains = 4,\n  iter_warmup = 5000,\n  iter_sampling = 500,\n  parallel_chains = 4,\n  adapt_delta = .99,\n  file = \"fits/pie-model\"\n)"
+  },
+  {
+    "objectID": "index.html#check-model-fit",
+    "href": "index.html#check-model-fit",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Check model fit",
+    "text": "Check model fit\n\n\n\nPosterior predictive model checks (PPMCs) to evaluate the fit of model to data\nPPMCs available at the model and item level"
+  },
+  {
+    "objectID": "index.html#evaluate-reliability",
+    "href": "index.html#evaluate-reliability",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Evaluate reliability",
+    "text": "Evaluate reliability\n\nMultiple types of reliability indices\n\nProfile-level classification\nAttribute-level classification\nProbabilities\n\n\n\n\nmeasr_extract(pie_hdcm, \"classification_reliability\")\n#&gt; # A tibble: 3 × 3\n#&gt;   attribute accuracy consistency\n#&gt;   &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;\n#&gt; 1 L1           0.964       0.994\n#&gt; 2 L2           0.919       0.977\n#&gt; 3 L3           0.930       0.877"
+  },
+  {
+    "objectID": "index.html#compare-models",
+    "href": "index.html#compare-models",
+    "title": "Estimating and evaluating  diagnostic models",
+    "section": "Compare models",
+    "text": "Compare models\n\n\n\nModel comparisons with leave-one-out cross validation (LOO) with the loo package\nEqual fit between our two models indicates that our HDCM with the enforced hierarchy among the learning pathway levels is supported\n\n\n\n\n\n\nloo_compare(\n  pie_lcdm,\n  pie_hdcm,\n  model_names = c(\"LCDM\", \"HDCM\")\n)\n#&gt;      elpd_diff se_diff\n#&gt; HDCM 0.0       0.0    \n#&gt; LCDM 0.0       2.8"
   },
   {
     "objectID": "index.html#acknowledgements",

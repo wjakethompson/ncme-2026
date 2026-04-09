@@ -1,1 +1,1 @@
-Sitemap: https://wjakethompson.github.io/ncme-2026/sitemap.xml
+Sitemap: https://ncme2026.wjakethompson.com/sitemap.xml

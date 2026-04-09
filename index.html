@@ -6,10 +6,10 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b754b9fd3853d7e56faef54c29c5d52b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-78590c1e3542fc485fc89499c0464c78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.24">
 <meta name="author" content="W. Jake Thompson, Ph.D.">
 <title>ncme-2026 – Estimating and evaluating   diagnostic models</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
 <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
 <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
-<link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-b6f50a6bea5102a9ae6516d59fa82fe7.css">
+<link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-b70d6bb87310e5028acbc93e5680800f.css">
 <link rel="stylesheet" href="site_libs/quarto-contrib/quarto-project/r-dcm/measr-slides/backgrounds.css">
 <link rel="stylesheet" href="site_libs/quarto-contrib/quarto-project/r-dcm/measr-slides/lists.css">
 <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -140,23 +209,185 @@ W. Jake Thompson, Ph.D.
 </div>
 </div>
 
-</section><section><section id="section-title" class="title-slide slide level1 center"><h1>Section title</h1>
+</section><section id="what-are-diagnositc-models" class="slide level2"><h2>What are diagnositc models</h2>
+<ul>
+<li><p>DCMs are psychometric models for the purpose of classification</p></li>
+<li><p>Fine-grained, multidimensional reporting</p></li>
+<li><p>Results that are instructionally useful for teachers, parents, and students (<a href="https://doi.org/10.1111/emip.12619">Thompson &amp; Clark, 2024</a>)</p></li>
+</ul></section><section id="dcms-with-stan" class="slide level2"><h2>DCMs with Stan</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Stan is free and open-source</li>
+<li>Existing documentation for implementing DCMs
+<ul>
+<li><a href="https://mc-stan.org/learn-stan/case-studies/dina_independent.html">Case study using the DINA model</a></li>
+<li><a href="https://doi.org/10.3758/s13428-018-1069-9">Paper describing LCDM implmentation</a></li>
+</ul>
+</li>
+<li>Access to other packages in the Stan ecosystem
+<ul>
+<li>
+<a href="https://mc-stan.org/loo/">loo</a>, <a href="http://mjskay.github.io/tidybayes/">tidybayes</a>, <a href="https://mc-stan.org/posterior/">posterior</a>
+</li>
+</ul>
+</li>
+<li>Need an interface with R
+<ul>
+<li>Automate script generation</li>
+<li>Facilitate model evaluations</li>
+</ul>
+</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="center">
+<p><img data-src="figure/stan.png" alt="Stan logo."></p>
+</div>
+</div></div>
+</section><section><section id="section" class="title-slide slide level1 empty center" data-menu-title="measr" data-background-color="#023047" data-background-iframe="grid-worms/index.html"><h1></h1>
 
-</section><section id="default-slide" class="slide level2"><h2>Default slide</h2>
-</section></section><section><section id="httpsncme2026.wjakethompson.com" class="title-slide slide level1 thank-you center" data-menu-title="Get in touch" data-background-color="#023047"><h1><a href="https://ncme2026.wjakethompson.com" class="uri">https://ncme2026.wjakethompson.com</a></h1>
-<div class="columns v-center-container">
-<div class="column image" style="width:65%;">
+<img data-src="figure/measr.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%" alt="Hex logo for the measr R package."></section><section id="data-pathways-for-instructionally-embedded-assessment-pie" class="slide level2"><h2>Data: Pathways for Instructionally Embedded Assessment (PIE)</h2>
+<ul>
+<li>15 items, measuring 3 attributes
+<ul>
+<li>Level 1, 2, and 3 skills in a grade 5 learning pathway</li>
+<li>Skills follow a linear hierarchy: Level 1 -&gt; Level 2 -&gt; Level 3</li>
+<li>Described by <a href="https://pie.atlas4learning.org/sites/default/files/documents/resources/PIE_Assessment_Design_Development_Technical_Report.pdf">ATLAS (2025)</a>
+</li>
+</ul>
+</li>
+<li>Available in the <a href="https://dcmdata.r-dcm.org">dcmdata</a> package</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># remotes::install_github("r-dcm/dcmdata")</span></span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(dcmdata)</span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a>?pie</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="specify-a-dcm" class="slide level2"><h2>Specify a DCM</h2>
+<div class="columns">
+<div class="column" style="width:37%;">
+<ul>
+<li><p>Choose from a wide variety of measurement models (e.g., LCDM, DINA, C-RUM)</p></li>
+<li><p>Define attribute relationships through the structural model (e.g.&nbsp;HDCM, Bayesian Network)</p></li>
+<li><p>Set prior distributions</p></li>
+</ul>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:59%;">
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>pie_hdcm_spec <span class="ot">&lt;-</span> <span class="fu">dcm_specify</span>(</span>
+<span id="cb2-2"><a></a>  <span class="at">qmatrix =</span> pie_ft_qmatrix,</span>
+<span id="cb2-3"><a></a>  <span class="at">identifier =</span> <span class="st">"task"</span>,</span>
+<span id="cb2-4"><a></a>  <span class="at">measurement_model =</span> <span class="fu">lcdm</span>(),</span>
+<span id="cb2-5"><a></a>  <span class="at">structural_model =</span> <span class="fu">hdcm</span>(<span class="st">"L1 -&gt; L2 -&gt; L3"</span>)</span>
+<span id="cb2-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section><section id="estimate-a-dcm" class="slide level2"><h2>Estimate a DCM</h2>
+<div class="columns">
+<div class="column" style="width:47%;">
+<ul>
+<li><p>Wraps <em>Stan</em> via <a href="https://mc-stan.org/rstan/">rstan</a> or <a href="https://mc-stan.org/cmdstanr/">cmdstanr</a> packages</p></li>
+<li><p>Multiple estimatiom methods supported: MCMC, variational inference, or optimization</p></li>
+</ul>
+</div><div class="column" style="width:3%;">
+
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>pie_hdcm <span class="ot">&lt;-</span> <span class="fu">dcm_estimate</span>(</span>
+<span id="cb3-2"><a></a>  <span class="at">dcm_spec =</span> pie_hdcm_spec,</span>
+<span id="cb3-3"><a></a>  <span class="at">data =</span> pie_ft_data,</span>
+<span id="cb3-4"><a></a>  <span class="at">identifier =</span> <span class="st">"student"</span>,</span>
+<span id="cb3-5"><a></a>  <span class="at">method =</span> <span class="st">"mcmc"</span>,</span>
+<span id="cb3-6"><a></a>  <span class="at">backend =</span> <span class="st">"cmdstanr"</span>,</span>
+<span id="cb3-7"><a></a>  <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb3-8"><a></a>  <span class="at">iter_warmup =</span> <span class="dv">5000</span>,</span>
+<span id="cb3-9"><a></a>  <span class="at">iter_sampling =</span> <span class="dv">500</span>,</span>
+<span id="cb3-10"><a></a>  <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb3-11"><a></a>  <span class="at">adapt_delta =</span> .<span class="dv">99</span>,</span>
+<span id="cb3-12"><a></a>  <span class="at">file =</span> <span class="st">"fits/pie-model"</span></span>
+<span id="cb3-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section><section id="check-model-fit" class="slide level2"><h2>Check model fit</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li><p>Posterior predictive model checks (PPMCs) to evaluate the fit of model to data</p></li>
+<li><p>PPMCs available at the model and item level</p></li>
+</ul>
+</div><div class="column" style="width:70%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="figure/measr.png" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="Hex logo for the measr R package"></p>
+<figure><p><img data-src="index_files/figure-revealjs/pie-raw-score-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%;height:50.0%" alt="Scatter plot showing the number of respondents at each score point in each iteration with the average and observed number of respondents overlayed."></p>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:35%;">
+</div></div>
+</section><section id="evaluate-reliability" class="slide level2"><h2>Evaluate reliability</h2>
+<ul>
+<li>Multiple types of reliability indices
+<ul>
+<li>Profile-level classification</li>
+<li>Attribute-level classification</li>
+<li>Probabilities</li>
+</ul>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">measr_extract</span>(pie_hdcm, <span class="st">"classification_reliability"</span>)</span>
+<span id="cb4-2"><a></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb4-3"><a></a><span class="co">#&gt;   attribute accuracy consistency</span></span>
+<span id="cb4-4"><a></a><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb4-5"><a></a><span class="co">#&gt; 1 L1           0.964       0.994</span></span>
+<span id="cb4-6"><a></a><span class="co">#&gt; 2 L2           0.919       0.977</span></span>
+<span id="cb4-7"><a></a><span class="co">#&gt; 3 L3           0.930       0.877</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="compare-models" class="slide level2"><h2>Compare models</h2>
+<div class="columns">
+<div class="column" style="width:47%;">
+<ul>
+<li><p>Model comparisons with leave-one-out cross validation (LOO) with the <a href="https://mc-stan.org/loo/">loo</a> package</p></li>
+<li><p>Equal fit between our two models indicates that our HDCM with the enforced hierarchy among the learning pathway levels is supported</p></li>
+</ul>
+</div><div class="column" style="width:3%;">
+
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">loo_compare</span>(</span>
+<span id="cb5-2"><a></a>  pie_lcdm,</span>
+<span id="cb5-3"><a></a>  pie_hdcm,</span>
+<span id="cb5-4"><a></a>  <span class="at">model_names =</span> <span class="fu">c</span>(<span class="st">"LCDM"</span>, <span class="st">"HDCM"</span>)</span>
+<span id="cb5-5"><a></a>)</span>
+<span id="cb5-6"><a></a><span class="co">#&gt;      elpd_diff se_diff</span></span>
+<span id="cb5-7"><a></a><span class="co">#&gt; HDCM 0.0       0.0    </span></span>
+<span id="cb5-8"><a></a><span class="co">#&gt; LCDM 0.0       2.8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section></section><section><section id="learn-more-r-dcm.org" class="title-slide slide level1 thank-you center" data-menu-title="Get in touch" data-background-color="#023047"><h1>Learn more: <a href="https://r-dcm.org"><strong>r-dcm.org</strong></a>
+</h1>
+<div class="columns v-center-container">
+<div class="column image" style="width:60%;">
+<div class="center">
+<p>Slides</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="figure/slides-qr.png" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="QR code linking to https://ncme2026.wjakethompson.com"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
 <div class="thank-you-subtitle">
 <div class="small">
+<p><br></p>
 <p><iconify-icon inline="" icon="fa6-solid:globe" aria-label="Icon globe from fa6-solid Iconify.design set." title="Icon globe from fa6-solid Iconify.design set."></iconify-icon> &nbsp;<a href="https://wjakethompson.com">wjakethompson.com</a><br><iconify-icon inline="" icon="fa6-solid:envelope" aria-label="Icon envelope from fa6-solid Iconify.design set." title="Icon envelope from fa6-solid Iconify.design set."></iconify-icon> &nbsp;<a href="mailto:wjakethompson@ku.edu">wjakethompson@ku.edu</a><br><iconify-icon inline="" icon="fa6-brands:orcid" aria-label="Icon orcid from fa6-brands Iconify.design set." title="Icon orcid from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://orcid.org/0000-0001-7339-0300">0000-0001-7339-0300</a><br><iconify-icon inline="" icon="fa6-brands:linkedin" aria-label="Icon linkedin from fa6-brands Iconify.design set." title="Icon linkedin from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://linkedin.com/in/wjakethompson">in/wjakethompson</a><br><iconify-icon inline="" icon="fa6-brands:github" aria-label="Icon github from fa6-brands Iconify.design set." title="Icon github from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://github.com/wjakethompson"><span class="citation" data-cites="wjakethompson">@wjakethompson</span></a><br><iconify-icon inline="" icon="fa6-brands:bluesky" aria-label="Icon bluesky from fa6-brands Iconify.design set." title="Icon bluesky from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://bsky.app/profile/wjakethompson.com"><span class="citation" data-cites="wjakethompson.com">@wjakethompson.com</span></a><br><iconify-icon inline="" icon="fa6-brands:mastodon" aria-label="Icon mastodon from fa6-brands Iconify.design set." title="Icon mastodon from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://fosstodon.org/@wjakethompson"><span class="citation" data-cites="wjakethompson">@wjakethompson</span><span class="citation" data-cites="fosstodon.org">@fosstodon.org</span></a><br><iconify-icon inline="" icon="fa6-brands:threads" aria-label="Icon threads from fa6-brands Iconify.design set." title="Icon threads from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://www.threads.net/@wjakethompson"><span class="citation" data-cites="wjakethompson">@wjakethompson</span></a><br><iconify-icon inline="" icon="fa6-brands:x-twitter" aria-label="Icon x-twitter from fa6-brands Iconify.design set." title="Icon x-twitter from fa6-brands Iconify.design set."></iconify-icon> &nbsp;<a href="https://twitter.com/wjakethompson"><span class="citation" data-cites="wjakethompson">@wjakethompson</span></a></p>
 </div>
 </div>
@@ -484,7 +715,7 @@ W. Jake Thompson, Ph.D.
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/ncme2026\.wjakethompson\.com");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
@@ -543,160 +774,6 @@ W. Jake Thompson, Ph.D.
             }
           });
         }
-            let selectedAnnoteEl;
-            const selectorForAnnotation = ( cell, annotation) => {
-              let cellAttr = 'data-code-cell="' + cell + '"';
-              let lineAttr = 'data-code-annotation="' +  annotation + '"';
-              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-              return selector;
-            }
-            const selectCodeLines = (annoteEl) => {
-              const doc = window.document;
-              const targetCell = annoteEl.getAttribute("data-target-cell");
-              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-              const lineIds = lines.map((line) => {
-                return targetCell + "-" + line;
-              })
-              let top = null;
-              let height = null;
-              let parent = null;
-              if (lineIds.length > 0) {
-                  //compute the position of the single el (top and bottom and make a div)
-                  const el = window.document.getElementById(lineIds[0]);
-                  top = el.offsetTop;
-                  height = el.offsetHeight;
-                  parent = el.parentElement.parentElement;
-                if (lineIds.length > 1) {
-                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-                  height = bottom - top;
-                }
-                if (top !== null && height !== null && parent !== null) {
-                  // cook up a div (if necessary) and position it 
-                  let div = window.document.getElementById("code-annotation-line-highlight");
-                  if (div === null) {
-                    div = window.document.createElement("div");
-                    div.setAttribute("id", "code-annotation-line-highlight");
-                    div.style.position = 'absolute';
-                    parent.appendChild(div);
-                  }
-                  div.style.top = top - 2 + "px";
-                  div.style.height = height + 4 + "px";
-                  div.style.left = 0;
-                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-                  if (gutterDiv === null) {
-                    gutterDiv = window.document.createElement("div");
-                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                    gutterDiv.style.position = 'absolute';
-                    const codeCell = window.document.getElementById(targetCell);
-                    const gutter = codeCell.querySelector('.code-annotation-gutter');
-                    gutter.appendChild(gutterDiv);
-                  }
-                  gutterDiv.style.top = top - 2 + "px";
-                  gutterDiv.style.height = height + 4 + "px";
-                }
-                selectedAnnoteEl = annoteEl;
-              }
-            };
-            const unselectCodeLines = () => {
-              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-              elementsIds.forEach((elId) => {
-                const div = window.document.getElementById(elId);
-                if (div) {
-                  div.remove();
-                }
-              });
-              selectedAnnoteEl = undefined;
-            };
-              // Handle positioning of the toggle
-          window.addEventListener(
-            "resize",
-            throttle(() => {
-              elRect = undefined;
-              if (selectedAnnoteEl) {
-                selectCodeLines(selectedAnnoteEl);
-              }
-            }, 10)
-          );
-          function throttle(fn, ms) {
-          let throttle = false;
-          let timer;
-            return (...args) => {
-              if(!throttle) { // first call gets through
-                  fn.apply(this, args);
-                  throttle = true;
-              } else { // all the others get throttled
-                  if(timer) clearTimeout(timer); // cancel #2
-                  timer = setTimeout(() => {
-                    fn.apply(this, args);
-                    timer = throttle = false;
-                  }, ms);
-              }
-            };
-          }
-            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
-            for (let i=0; i<annoteTargets.length; i++) {
-              const annoteTarget = annoteTargets[i];
-              const targetCell = annoteTarget.getAttribute("data-target-cell");
-              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
-              const contentFn = () => {
-                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-                if (content) {
-                  const tipContent = content.cloneNode(true);
-                  tipContent.classList.add("code-annotation-tip-content");
-                  return tipContent.outerHTML;
-                }
-              }
-              const config = {
-                allowHTML: true,
-                content: contentFn,
-                onShow: (instance) => {
-                  selectCodeLines(instance.reference);
-                  instance.reference.classList.add('code-annotation-active');
-                  window.tippy.hideAll();
-                },
-                onHide: (instance) => {
-                  unselectCodeLines();
-                  instance.reference.classList.remove('code-annotation-active');
-                },
-                maxWidth: 300,
-                delay: [50, 0],
-                duration: [200, 0],
-                offset: [5, 10],
-                arrow: true,
-                trigger: 'click',
-                appendTo: function(el) {
-                  return el.parentElement.parentElement.parentElement;
-                },
-                interactive: true,
-                interactiveBorder: 10,
-                theme: 'light-border',
-                placement: 'right',
-                positionFixed: true,
-                popperOptions: {
-                  modifiers: [
-                  {
-                    name: 'flip',
-                    options: {
-                      flipVariations: false, // true by default
-                      allowedAutoPlacements: ['right'],
-                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
-                    },
-                  },
-                  {
-                    name: 'preventOverflow',
-                    options: {
-                      mainAxis: false,
-                      altAxis: false
-                    }
-                  }
-                  ]        
-                }      
-              };
-              window.tippy(annoteTarget, config); 
-            }
         const findCites = (el) => {
           const parentEl = el.parentElement;
           if (parentEl) {
